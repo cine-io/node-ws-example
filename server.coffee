@@ -11,11 +11,12 @@ logClientCount = ->
 
 broadcast = (data)->
   clients.forEach (socket)->
-    socket.send data
+    socket.send(data) if socket
 
 close = (socketToClose)->
-  whichIndex = clients.indexOf(socketToClose)
-  delete clients[whichIndex] if whichIndex > 0
+  for i in clients
+    if clients[i] == socketToClose
+      clients.splice(i)
   logClientCount()
 
 
