@@ -31,5 +31,6 @@ server.on "connection", (socket) ->
     console.log("received: %s", message.message) if message.action == 'broadcast'
     broadcast data unless message.action == 'ping'
 
-  socket.on "close", close
+  socket.on "close", ->
+    close(socket)
 
