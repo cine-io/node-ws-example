@@ -1,3 +1,7 @@
+## JEFFREY NOTES
+
+`thor --amount 10000 --messages 10 --masked ws://node-ws-example-gs.herokuapp.com`
+
 ## Heroku compatible node.js websockets example
 
 Install dependencies locally
@@ -46,7 +50,7 @@ To git@heroku.com:node-ws-example.git
 Run client locally
 
 ```
-$ SERVER=node-ws-example.herokuapp.com node client.js 
+$ SERVER=node-ws-example.herokuapp.com node client.js
 received: server says HELLO via websockets!
 ^C
 ```
