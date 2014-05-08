@@ -2,7 +2,7 @@ async = require("async")
 WebSocket = require("ws")
 serverUrl = process.argv[3] || "ws://node-ws-example-gs.herokuapp.com"
 defaultPingInterval = 25
-messageWaitTime = 10
+messageWaitTime = 30
 sockets = []
 receivedCount = {}
 
