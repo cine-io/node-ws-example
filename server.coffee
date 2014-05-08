@@ -5,8 +5,8 @@ totalConnections = 0
 clients = []
 
 logClientCount = ->
-  if clients.length % 100 is 0 or totalConnections % 100 is 0
-    console.log "#{totalConnections} connections"
+  if clients.length % 100 is 0
+    console.log "#{totalConnections} connections since server started"
     console.log "#{clients.length} connected clients"
 
 broadcast = (data)->
@@ -26,5 +26,7 @@ server.on "connection", (socket) ->
     broadcast data unless message.action == 'ping'
 
   socket.on "close", ->
-    clients.splice(clients.length-1)
+    which = clients.indexOf(socket)
+    if which > 0
+      clients.splice(which, 1)
     logClientCount()
