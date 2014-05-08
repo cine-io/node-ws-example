@@ -2,23 +2,32 @@ port = process.env.PORT or 5000
 WebSocketServer = require("ws").Server
 server = new WebSocketServer(port: port)
 totalConnections = 0
-currentConnections = 0
+clients = []
 
 logClientCount = ->
   if currentConnections % 100 is 0 or totalConnections % 100 is 0
     console.log "#{totalConnections} connections"
-    console.log "#{currentConnections} connected clients"
+    console.log "#{clients.length} connected clients"
+
+broadcast = (data)->
+  clients.forEach socket, ->
+    socket.send data
+
+close = (socketToClose)->
+  whichIndex = clients.indexOf(socketToClose)
+  delete clients[whichIndex] if whichIndex > 0
+  logClientCount()
+
 
 server.on "connection", (socket) ->
   totalConnections++
-  currentConnections++
+  clients.push socket
   logClientCount()
 
   socket.on "message", (data) ->
     message = JSON.parse(data)
     console.log("received: %s", message.message) if message.action == 'broadcast'
-    socket.send data unless message.action == 'ping'
+    broadcast data unless message.action == 'ping'
 
-  socket.on "close", ->
-    currentConnections--
-    logClientCount()
+  socket.on "close", close
+
