@@ -5,15 +5,18 @@ totalConnections = 0
 timeSpent =
   "sending data" : 0
   "parsing data" : 0
+  "logging" : 0
 
 
 logStats = ->
+  start = (new Date()).getTime()
   if server.clients.length % 100 is 0 or totalConnections % 100 is 0
     console.log "#{totalConnections} connections since server started"
     console.log "#{server.clients.length} connected clients"
   for key, value of timeSpent
-    value = Math.floor(value / 1000)
+    value = (value / 1000).toFixed(2)
     console.log "time spent #{key}: #{value} secs"
+  timeSpent["logging"] += (new Date()).getTime() - start
 
 server.broadcast = (data)->
   for client in @clients
