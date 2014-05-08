@@ -4,7 +4,7 @@ server = new WebSocketServer(port: port)
 totalConnections = 0
 
 logClientCount = ->
-  if clients.length % 100 is 0
+  if server.clients.length % 100 is 0 or totalConnections % 100 is 0
     console.log "#{totalConnections} connections since server started"
     console.log "#{server.clients.length} connected clients"
 
