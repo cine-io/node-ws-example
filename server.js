@@ -1,12 +1,15 @@
 var port = process.env.PORT || 5000;
 var WebSocketServer = require('ws').Server
   , wss = new WebSocketServer({port: port})
-  , numConnections = 0;
+  , totalConnections = 0
+  , currentConnections = 0;
 wss.on('connection', function(ws) {
-  numConnections++;
+  totalConnections++;
+  currentConnections++;
 
-  if (numConnections % 100 === 0) {
-    console.log('connected', numConnections, 'clients');
+  if (totalConnections % 100 === 0) {
+    console.log(totalConnections, 'total clients');
+    console.log(currentConnections, 'current clients');
   }
 
   ws.on('message', function(message) {
@@ -15,7 +18,8 @@ wss.on('connection', function(ws) {
   });
 
   ws.on('close', function() {
-    console.log('client disconnected');
+    currentConnections--;
+    // console.log('client disconnected');
   });
 
 });
