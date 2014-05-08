@@ -11,4 +11,8 @@ wss.on('connection', function(ws) {
         console.log('received: %s bytes', message.length);
         if (!message.match(/^ping/)) ws.send(message);
     });
+  ws.on('close', function() {
+    console.log('client disconnected');
+  });
+
 });
