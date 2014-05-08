@@ -5,5 +5,5 @@ wss.on('connection', function(ws) {
     ws.on('message', function(message) {
         console.log('received: %s', message);
     });
-    ws.send(new Date());
+    ws.send('pong ' + new Date());
 });
