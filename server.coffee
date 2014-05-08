@@ -13,13 +13,6 @@ broadcast = (data)->
   clients.forEach (socket)->
     socket.send(data) if socket
 
-close = (socketToClose)->
-  for i in clients
-    console.log clients[i], socketToClose, clients[i] == socketToClose
-    if clients[i] == socketToClose
-      clients.splice(i)
-  logClientCount()
-
 
 server.on "connection", (socket) ->
   totalConnections++
@@ -33,5 +26,5 @@ server.on "connection", (socket) ->
     broadcast data unless message.action == 'ping'
 
   socket.on "close", ->
-    close(socket)
-
+    clients.splice(clients.length-1)
+    logClientCount()
