@@ -10,7 +10,7 @@ logClientCount = ->
     console.log "#{clients.length} connected clients"
 
 broadcast = (data)->
-  clients.forEach socket, ->
+  clients.forEach (socket)->
     socket.send data
 
 close = (socketToClose)->
