@@ -5,7 +5,7 @@ totalConnections = 0
 currentConnections = 0
 
 logClientCount = ->
-  if numConnections % 100 is 0
+  if currentConnections % 100 is 0 or totalConnections % 100 is 0
     console.log "#{totalConnections} total clients"
     console.log "#{currentConnections} current clients"
 
