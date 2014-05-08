@@ -21,7 +21,7 @@ server.on "connection", (socket) ->
 
   socket.on "message", (data) ->
     message = JSON.parse(data)
-    console.log("recieved ping from %s", message.socketNum) if message.action == 'ping'
+    console.log("received ping from %s", message.socketNum) if message.action == 'ping'
     console.log("received: %s", message.message) if message.action == 'broadcast'
     server.broadcast data unless message.action == 'ping'
 
