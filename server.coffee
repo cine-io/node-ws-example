@@ -16,8 +16,8 @@ server.on "connection", (socket) ->
 
   socket.on "message", (data) ->
     message = JSON.parse(data)
-    console.log "received: %s bytes", message.message.length if message.action == 'broadcast'
-    socket.send message unless message.action == 'ping'
+    console.log("received: %s bytes", message.message.length) if message.action == 'broadcast'
+    socket.send data unless message.action == 'ping'
 
   socket.on "close", ->
     currentConnections--
