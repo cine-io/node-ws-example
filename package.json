@@ -7,11 +7,7 @@
     "underscore": "^1.6.0",
     "cli-color": "^0.3.2",
     "async": "^0.8.0",
-<<<<<<< HEAD
     "coffee-script": "^1.7.1"
-=======
-    "coffee": "0.0.1"
->>>>>>> server.js --> server.coffee
   },
   "engines": {
     "node": "0.10.x",
