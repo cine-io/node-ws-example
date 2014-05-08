@@ -1,6 +1,6 @@
 ## JEFFREY NOTES
 
-`thor --amount 10000 --messages 10 --masked ws://node-ws-example-gs.herokuapp.com`
+`thor --amount 10000 --messages 100  ws://node-ws-example-gs.herokuapp.com`
 
 ## Heroku compatible node.js websockets example
 
