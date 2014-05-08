@@ -1,3 +1,4 @@
+async = require("async")
 WebSocket = require("ws")
 serverUrl = process.argv[3] || "ws://node-ws-example-gs.herokuapp.com"
 defaultPingInterval = 25
@@ -33,7 +34,7 @@ newSocket = (socketNum, numSockets, pingInterval)->
     setTimeout(reportReceived, messageWaitTime*1000) if receivedCount[message.message] == 1
 
   socket.on 'close', ->
-    console.log "socket", socketNum, "closed"
+    console.log "socket", socketNum, "disconnected"
 
 sendAMessageEverySecond = (numSockets)->
   doIt = ->
@@ -46,10 +47,20 @@ sendAMessageEverySecond = (numSockets)->
     setTimeout doIt, 1000
   doIt()
 
+exit = (err)->
+  throw err if err
+  process.exit(0)
+
+closeAllAndExit = ->
+  console.log "Interrupt! Cleaning up ..."
+  closer = (socket, callback)->
+    socket.terminate()
+    callback(null)
+  async.each sockets, closer, exit
+
 run = ->
+  process.on 'SIGINT', closeAllAndExit
   numSockets = parseInt(process.argv[2]) || 10
-  # create all of the clients first
-  numConnected = 0
   for i in [0..numSockets-1]
     newSocket i, numSockets, defaultPingInterval
 
