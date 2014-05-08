@@ -15,6 +15,7 @@ broadcast = (data)->
 
 close = (socketToClose)->
   for i in clients
+    console.log clients[i], socketToClose, clients[i] == socketToClose
     if clients[i] == socketToClose
       clients.splice(i)
   logClientCount()
