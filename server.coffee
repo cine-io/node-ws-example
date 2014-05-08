@@ -23,10 +23,14 @@ server.on "connection", (socket) ->
     message = JSON.parse(data)
     console.log("recieved ping from %s", message.socketNum) if message.action == 'ping'
     console.log("received: %s", message.message) if message.action == 'broadcast'
-    broadcast data unless message.action == 'ping'
+    server.broadcast data unless message.action == 'ping'
 
   socket.on "close", ->
     which = clients.indexOf(socket)
     if which > 0
       clients.splice(which, 1)
     logClientCount()
+
+server.broadcast = (data)->
+  for client in @clients
+    client.send data
